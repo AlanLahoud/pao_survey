@@ -15,9 +15,9 @@ def select_items(train_sales, is_discrete, start_day=900, window=50):
     if is_discrete:
         # Get items which daily sales near 0 (considering discrete later)
         return train_sales[
-            (train_sales.iloc[:,6:].mean(axis=1)<3) 
-            & (train_sales.iloc[:,6:].mean(axis=1)>0.4) 
-            & (train_sales.iloc[:,6:].median(axis=1)<3)
+            (train_sales.iloc[:,6:].mean(axis=1)<5) 
+            & (train_sales.iloc[:,6:].mean(axis=1)>0.5) 
+            & (train_sales.iloc[:,6:].median(axis=1)<5)
         ].id.unique().tolist()
     
     else:

@@ -14,13 +14,13 @@ def get_params(n_items, is_discrete, q_factor, seed_number):
     params_list = []
     
     for i in range(0, n_items):
-        c = 50 + np.random.randint(-45, 45) # Fixed cost for each item
-        cs = 100 + np.random.randint(-70, 70)  # Shortage cost fpr each item
-        cw = 100 + np.random.randint(-70, 70) # Excess cost for each item
+        c = 50 + np.random.randint(-10, 10) # Fixed cost for each item
+        cs = 100 + np.random.randint(-20, 20)  # Shortage cost fpr each item
+        cw = 100 + np.random.randint(-20, 20) # Excess cost for each item
         
         # constraints of price and size for each item
-        pr = int(100000/(c + cs + cw) + np.random.randint(-200, 200))
-        si = int(100000/(c + cs + cw) + np.random.randint(-200, 200))
+        pr = int(100000/(c + cs + cw) + np.random.randint(-50, 50))
+        si = int(100000/(c + cs + cw) + np.random.randint(-50, 50))
 
         params_list.append([c, cs, cw, pr, si])
 
@@ -32,8 +32,8 @@ def get_params(n_items, is_discrete, q_factor, seed_number):
         avg_sales = 1.3
     else:
         avg_sales = 30 
-    B = 400*avg_sales*n_items*np.random.uniform(0.2, 0.6)
-    S = 400*avg_sales*n_items*np.random.uniform(0.2, 0.6)
+    B = 400*avg_sales*n_items*np.random.uniform(0.3, 0.6)
+    S = 400*avg_sales*n_items*np.random.uniform(0.3, 0.6)
     
     
     # Building the parameters as numpy and torch dictionary
