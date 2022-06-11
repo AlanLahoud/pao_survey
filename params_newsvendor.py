@@ -14,9 +14,9 @@ def get_params(n_items, is_discrete, q_factor, seed_number):
     params_list = []
     
     for i in range(0, n_items):
-        c = 50 + np.random.randint(-10, 10) # Fixed cost for each item
-        cs = 100 + np.random.randint(-20, 20)  # Shortage cost fpr each item
-        cw = 100 + np.random.randint(-20, 20) # Excess cost for each item
+        c = 60 + np.random.randint(-50, 50) # Fixed cost for each item
+        cs = 180 + np.random.randint(-80, 80)  # Shortage cost fpr each item
+        cw = 120 + np.random.randint(-50, 50) # Excess cost for each item
         
         # constraints of price and size for each item
         pr = int(100000/(c + cs + cw) + np.random.randint(-50, 50))
