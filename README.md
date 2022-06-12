@@ -11,6 +11,6 @@ We show through this notebook that, on average, the combination of both methods 
 
 *C. How to run?*
 1. Download the data from https://www.kaggle.com/competitions/m5-forecasting-accuracy/data
-2. You will have 5 .csv files: calendar.csv ; sales_train_evaluation.csv ; sales_train_validation.csv ; sample_submission.csv ; sell_prices.csv
-3. Put all those .csv files in the /data folder in this project
+2. You will have 5 .csv files: calendar.csv ; sales_train_evaluation.csv ; sales_train_validation.csv ; sample_submission.csv ; sell_prices.csv. Put all those .csv files in the /data folder in this project
+3. Install the libraries from requirements.txt (Python 3)
 4. Read and run the notebook "predict_and_optimize_tutorial.ipynb".
