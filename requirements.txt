@@ -4,4 +4,5 @@ numpy==1.22.3
 pandas==1.4.2
 qpth==0.0.15
 torch==1.11.0
+scikit-learn==1.0.2 
 cvxpy
