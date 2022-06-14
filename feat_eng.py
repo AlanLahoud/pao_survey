@@ -6,13 +6,8 @@ import numpy as np
 #################################################################################
 
 def past_quantities(df):
-    df.loc[:, 'qty_d1'] = df.groupby('id').qty.shift(1)
-    df.loc[:, 'qty_d2'] = df.groupby('id').qty.shift(2)
-    df.loc[:, 'qty_d3'] = df.groupby('id').qty.shift(3)
-    df.loc[:, 'qty_d4'] = df.groupby('id').qty.shift(4)
-    df.loc[:, 'qty_d5'] = df.groupby('id').qty.shift(5)
-    df.loc[:, 'qty_d6'] = df.groupby('id').qty.shift(6)
-    df.loc[:, 'qty_d7'] = df.groupby('id').qty.shift(7)
+    for i in range(1, 29):
+        df.loc[:, 'qty_d{}'.format(i)] = df.groupby('id').qty.shift(i)
     return df
 
 def build_data(path_data, sales, sku_ids, 
@@ -99,7 +94,7 @@ def build_data(path_data, sales, sku_ids,
     data_test['day'] = data_test['d'].str.replace('d_','').astype(int)
     
 
-    data_train = data_train[data_train['day']>day_train_trsh+7]
+    data_train = data_train[data_train['day']>day_train_trsh+28]
     
     data_train = data_train.sort_values(by = ['day','id'])
     data_val = data_val.sort_values(by = ['day','id'])

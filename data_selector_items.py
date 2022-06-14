@@ -15,6 +15,7 @@ def select_items(train_sales, start_day=900, window=50):
 
     # Get items which daily sales >> 0 (considering continuous later)
     return train_sales[
-        (train_sales.iloc[:,6:].mean(axis=1)>4) 
-        & (train_sales.iloc[:,6:].median(axis=1)>4)
+        (train_sales.iloc[:,6:].mean(axis=1)>3) 
+        & (train_sales.iloc[:,6:].median(axis=1)>2)
+        & (train_sales.iloc[:,6:].mean(axis=1)<8)
     ].id.unique().tolist()
