@@ -10,8 +10,8 @@ def past_quantities(df):
         df.loc[:, 'qty_d{}'.format(i)] = df.groupby('id').qty.shift(i)
     return df
 
-def build_data(path_data, sales, sku_ids, 
-               split_perc, day_train_trsh):
+def build_data(path_data, sales, sku_ids,  
+               start_tr_day, start_val_day, start_test_day, end_day):
     
     calender = pd.read_csv(path_data + 'calendar.csv')
     sell_prices = pd.read_csv(path_data + 'sell_prices.csv')
@@ -46,7 +46,7 @@ def build_data(path_data, sales, sku_ids,
         axis='columns')
 
     del_col = []
-    for x in range(day_train_trsh):
+    for x in range(start_tr_day):
         del_col.append('d_' + str(x+1))
 
     sales =sales.drop(del_col, axis='columns')
@@ -69,24 +69,26 @@ def build_data(path_data, sales, sku_ids,
         data=sales, 
         columns=['dept_id', 'cat_id', 'store_id', 'state_id'])
 
-    day_test_trsh = int((1941 - day_train_trsh)*(1-split_perc[-1]) + day_train_trsh)
-    day_val_trsh = int((1941 - day_train_trsh)*(split_perc[0]) + day_train_trsh)
     
     data_test = sales[sales['d'].isin(
-        [c for c in sales['d'].unique().tolist() if int(
-            c.split('d_')[1]) > day_test_trsh])].copy().reset_index(
+        [c for c in sales['d'].unique().tolist() if (
+           (int(c.split('d_')[1]) < end_day)
+         & (int(c.split('d_')[1]) >= start_test_day)
+        )])].copy().reset_index(
         drop=True)
     
     data_val = sales[sales['d'].isin(
         [c for c in sales['d'].unique().tolist() if (
-           (int(c.split('d_')[1]) <= day_test_trsh)
-         & (int(c.split('d_')[1]) > day_val_trsh)
+           (int(c.split('d_')[1]) < start_test_day)
+         & (int(c.split('d_')[1]) >= start_val_day)
         )])].copy().reset_index(
         drop=True)
 
     data_train = sales[sales['d'].isin(
-        [c for c in sales['d'].unique().tolist() if int(
-            c.split('d_')[1]) <= day_val_trsh])].copy().reset_index(
+        [c for c in sales['d'].unique().tolist() if (
+           (int(c.split('d_')[1]) < start_val_day)
+         & (int(c.split('d_')[1]) >= start_tr_day)
+        )])].copy().reset_index(
         drop=True)
     
     data_train['day'] = data_train['d'].str.replace('d_','').astype(int)
@@ -94,7 +96,7 @@ def build_data(path_data, sales, sku_ids,
     data_test['day'] = data_test['d'].str.replace('d_','').astype(int)
     
 
-    data_train = data_train[data_train['day']>day_train_trsh+28]
+    data_train = data_train[data_train['day']>start_tr_day+28]
     
     data_train = data_train.sort_values(by = ['day','id'])
     data_val = data_val.sort_values(by = ['day','id'])

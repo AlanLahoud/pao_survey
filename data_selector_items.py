@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-def select_items(train_sales, start_day=900, window=50):
+def select_items(train_sales, start_day=800, window=40):
 
     train_sales = train_sales.drop(['d_'+str(n) for n in range(1, start_day)], axis=1)
 
@@ -15,7 +15,7 @@ def select_items(train_sales, start_day=900, window=50):
 
     # Get items which daily sales >> 0 (considering continuous later)
     return train_sales[
-        (train_sales.iloc[:,6:].mean(axis=1)>3) 
-        & (train_sales.iloc[:,6:].median(axis=1)>2)
-        & (train_sales.iloc[:,6:].mean(axis=1)<8)
+        (train_sales.iloc[:,6:].mean(axis=1)>2) 
+        & (train_sales.iloc[:,6:].median(axis=1)>1)
+        & (train_sales.iloc[:,6:].mean(axis=1)<10)
     ].id.unique().tolist()

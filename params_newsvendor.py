@@ -14,7 +14,7 @@ def get_params(n_items, is_discrete, q_factor, seed_number):
     params_list = []
     
     for i in range(0, n_items):
-        c = 60 + np.random.randint(-50, 50) # Fixed cost for each item
+        c = 60 + np.random.randint(-30, 30) # Fixed cost for each item
         cs = 180 + np.random.randint(-80, 80)  # Shortage cost fpr each item
         cw = 120 + np.random.randint(-50, 50) # Excess cost for each item
         
